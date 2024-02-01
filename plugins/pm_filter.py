@@ -86,15 +86,15 @@ async def give_filter(client, message):
     if k == False:
         await auto_filter(client, message)	
 	    
-	    @Client.on_callback_query(filters.regex('rename'))
-	    async def rename(bot,update):
-		    user_id = update.message.chat.id
-		    date = update.message.date
-		    await update.message.delete()
-		    await update.message.reply_text("»»——— 𝙋𝙡𝙚𝙖𝙨𝙚 𝙚𝙣𝙩𝙚𝙧 𝙣𝙚𝙬 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚...",	
-						    reply_to_message_id=update.message.reply_to_message.id, 
-						    reply_markup=ForceReply(True))  
-    
+@Client.on_callback_query(filters.regex('rename'))
+async def rename(bot,update):
+	user_id = update.message.chat.id
+	date = update.message.date
+	await update.message.delete()
+	await update.message.reply_text("»»——— 𝙋𝙡𝙚𝙖𝙨𝙚 𝙚𝙣𝙩𝙚𝙧 𝙣𝙚𝙬 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚...",	
+	reply_to_message_id=update.message.reply_to_message.id,  
+	reply_markup=ForceReply(True))  
+	
 # Born to make history @LazyDeveloper !
 @Client.on_callback_query(filters.regex("upload"))
 async def doc(bot, update):
