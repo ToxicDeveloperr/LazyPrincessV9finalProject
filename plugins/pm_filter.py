@@ -61,52 +61,39 @@ BUTTONS1 = {}
 BUTTONS2 = {}
 
 
+# @Client.on_message(filters.group & filters.text & filters.incoming)
+# async def give_filter(client, message):
+#     try:
+#         chatIDx = message.chat.id
+#         lazy_chatIDx = await db.get_chat(int(chatIDx))
+#         if lazy_chatIDx['is_lazy_verified']:
+#             k = await manual_filters(client, message)
+#     except Exception as e:
+#         logger.error(f"Chat not verifeid : {e}") 
+
+#     if k == False:
+#         try:
+#             chatID = message.chat.id
+#             lazy_chatID = await db.get_chat(int(chatID))
+#             if lazy_chatID['is_lazy_verified']:
+#                 await auto_filter(client, message)
+#         except Exception as e:
+#             logger.error(f"Chat Not verified : {e}") 
+
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
-	try:
-		chatIDx = message.chat.id
-		lazy_chatIDx = await db.get_chat(int(chatIDx))
-		if lazy_chatIDx['is_lazy_verified']k = await manual_filters(client, message)
-	except Exception as e:
-		logger.error(f"Chat not verifeid : {e}") 
-		
-		if k == False:
-			try:
-				chatID = message.chat.idlazy_chatID = await db.get_chat(int(chatID))
-				if lazy_chatID['is_lazy_verified']:
-					await auto_filter(client, message)
-			except Exception as e:
-				logger.error(f"Chat Not verified : {e}") 
-				
-				
-				
-				
-				
-@Client.on_message(filters.private & filters.text & filters.incoming)
-async def pm_text(bot, message):
-	content = message.text
-	user = message.from_user.first_name
-	user_id = message.from_user.id
-	if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
-		if user_id in ADMINS: return # ignore admins
-			await message.reply_text(
-				text=f"<b>ʜᴇʏ {user} 😍 ,\n\nʏᴏᴜ ᴄᴀɴ'ᴛ ɢᴇᴛ ᴍᴏᴠɪᴇs ꜰʀᴏᴍ ʜᴇʀᴇ. ʀᴇǫᴜᴇsᴛ ɪᴛ ɪɴ ᴏᴜʀ <a href=https://t.me/a_movies_request_group>ᴍᴏᴠɪᴇ ɢʀᴏᴜᴘ</a> ᴏʀ ᴄʟɪᴄᴋ ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ 👇</b>",   
-				reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ ", url=f"https://t.me/a_movies_request_group")]])
-			)
-await bot.send_message(
-	chat_id=LOG_CHANNEL,
-	text=f"<b>#𝐏𝐌_𝐌𝐒𝐆\n\nNᴀᴍᴇ : {user}\n\nID : {user_id}\n\nMᴇssᴀɢᴇ : {content}</b>"
-)
-	
-	
-@Client.on_callback_query(filters.regex('rename'))
-async def rename(bot,update):
-	user_id = update.message.chat.id
-	date = update.message.date
-	await update.message.delete()
-	await update.message.reply_text("»»——— 𝙋𝙡𝙚𝙖𝙨𝙚 𝙚𝙣𝙩𝙚𝙧 𝙣𝙚𝙬 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚...",	
-	reply_to_message_id=update.message.reply_to_message.id,  
-	reply_markup=ForceReply(True))  
+    k = await manual_filters(client, message)
+    if k == False:
+        await auto_filter(client, message)	
+	    
+	    @Client.on_callback_query(filters.regex('rename'))
+	    async def rename(bot,update):
+		    user_id = update.message.chat.id
+		    date = update.message.date
+		    await update.message.delete()
+		    await update.message.reply_text("»»——— 𝙋𝙡𝙚𝙖𝙨𝙚 𝙚𝙣𝙩𝙚𝙧 𝙣𝙚𝙬 𝙛𝙞𝙡𝙚 𝙣𝙖𝙢𝙚...",	
+						    reply_to_message_id=update.message.reply_to_message.id, 
+						    reply_markup=ForceReply(True))  
     
 # Born to make history @LazyDeveloper !
 @Client.on_callback_query(filters.regex("upload"))
